@@ -16,6 +16,7 @@ import javax.swing.JInternalFrame;
 import java.awt.Button;
 import javax.swing.JSlider;
 import java.awt.event.MouseMotionAdapter;
+import java.io.File;
 import java.awt.event.MouseEvent;
 
 public class MusicPlayerGUI extends JFrame {
@@ -30,10 +31,12 @@ public class MusicPlayerGUI extends JFrame {
 	private JButton Pause;
 	private JButton Play;
 	private JButton Stop;
-	private JButton Load;
+	//private JButton Load;
 	private JButton NextSong;
 	private JButton PreviousSong;
 	private JSlider VolumeSlider;
+	private JComboBox<String> SongcomboBox;
+	private JButton playSong;
 
 	/**
 	 * Launch the application.
@@ -72,9 +75,11 @@ public class MusicPlayerGUI extends JFrame {
 	      		Play.setEnabled(true);
 	      		Pause.setEnabled(true);
 	      		Stop.setEnabled(true);
-	      		Load.setEnabled(true);
+	      		//Load.setEnabled(true);
 	      		NextSong.setEnabled(true);
 	      		PreviousSong.setEnabled(true);
+	      		SongcomboBox.setEnabled(true);
+	      		playSong.setEnabled(true);
 	      		OpenPort.setEnabled(false);
 			}
 		});
@@ -118,16 +123,40 @@ public class MusicPlayerGUI extends JFrame {
 		Stop.setBounds(249, 119, 53, 23);
 		contentPane.add(Stop);
 		
-		Load = new JButton("\tLoad");
+		
+		SongcomboBox = new JComboBox<String>();
+		SongcomboBox.setEnabled(false);
+		SongcomboBox.setBounds(67, 11, 149, 20);
+		SongcomboBox.addItem("Clocks");
+		SongcomboBox.addItem("Herbal Tea");
+		SongcomboBox.addItem("9-0");
+		SongcomboBox.addItem("EnDenDino");
+		SongcomboBox.addItem("I Wanna Be Y	ours");
+		contentPane.add(SongcomboBox);
+		
+		playSong = new JButton("playSong");
+		playSong.setEnabled(false);
+		playSong.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int songIndex = SongcomboBox.getSelectedIndex() + 1;
+				CMDSender(Commands.playWithFolder, (byte) 01, (byte) songIndex);
+			}
+		});
+		playSong.setBounds(127, 42, 89, 23);
+		contentPane.add(playSong);
+		
+		/*
+		 * 		Load = new JButton("\tLoad");
 		Load.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CMDSender(Commands.playWithFolder, (byte) 01, (byte) 01);	
+				CMDSender(Commands.playWithFolder, (byte) 01, (byte) selectedSong);	
 			}
 		});
 		Load.setEnabled(false);
 		Load.setBounds(176, 153, 82, 23);
 		contentPane.add(Load);
 		
+		 */
 		NextSong = new JButton("\t\u25B6\u25B6");
 		NextSong.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
