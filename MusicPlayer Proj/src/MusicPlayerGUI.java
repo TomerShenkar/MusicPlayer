@@ -14,6 +14,9 @@ import javax.swing.JToolBar;
 import javax.swing.JSeparator;
 import javax.swing.JInternalFrame;
 import java.awt.Button;
+import javax.swing.JSlider;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
 
 public class MusicPlayerGUI extends JFrame {
 	
@@ -30,6 +33,7 @@ public class MusicPlayerGUI extends JFrame {
 	private JButton Load;
 	private JButton NextSong;
 	private JButton PreviousSong;
+	private JSlider VolumeSlider;
 
 	/**
 	 * Launch the application.
@@ -64,6 +68,7 @@ public class MusicPlayerGUI extends JFrame {
 				index = COMcomboBox.getSelectedIndex();
 	      		PortChosen = PortsAvailable[index];
 	      		PortChosen.openPort();
+	      		CMDSender(Commands.setVolume, (byte) 0, (byte) 16);
 	      		Play.setEnabled(true);
 	      		Pause.setEnabled(true);
 	      		Stop.setEnabled(true);
@@ -143,8 +148,17 @@ public class MusicPlayerGUI extends JFrame {
 		PreviousSong.setBounds(67, 119, 59, 23);
 		contentPane.add(PreviousSong);
 		
-		
-		
+		VolumeSlider = new JSlider();
+		VolumeSlider.setMaximum(31);
+		VolumeSlider.setValue(16);
+		VolumeSlider.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent arg0) {
+					CMDSender(Commands.setVolume, (byte) 0, (byte) VolumeSlider.getValue());
+			}
+		});
+		VolumeSlider.setBounds(117, 187, 200, 26);
+		contentPane.add(VolumeSlider);
 	}
 	
 	enum Commands{
