@@ -1,22 +1,14 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import com.fazecast.jSerialComm.*;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JToolBar;
-import javax.swing.JSeparator;
-import javax.swing.JInternalFrame;
-import java.awt.Button;
 import javax.swing.JSlider;
 import java.awt.event.MouseMotionAdapter;
-import java.io.File;
 import java.awt.event.MouseEvent;
 
 public class MusicPlayerGUI extends JFrame {
